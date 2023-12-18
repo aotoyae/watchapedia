@@ -1,0 +1,308 @@
+body {
+  background-image: url("image/snow_floor.jpeg");
+  background-position: center;
+  background-size: cover;
+  background-color: black;
+  color: white;
+  font-weight: bold;
+  font-family: "Grandiflora One", cursive;
+}
+
+.grid-1 {
+  display: grid;
+  width: 80vw;
+  max-width: 900px;
+  margin: 5% auto;
+  z-index: 1;
+  justify-content: center;
+
+  grid-template-columns: repeat(4, 150px);
+  grid-template-rows: repeat(4, 150px);
+  grid-gap: 20px;
+
+  grid-template-areas:
+    "text text text d19"
+    "d18 d20 d23 d15"
+    "d24 d24 d21 d22"
+    "d24 d24 d17 d16";
+}
+
+@media only screen and (min-width: 500px) {
+  .grid-1 {
+    grid-template-columns: repeat(4, 150px);
+    grid-template-areas:
+      "text text text d19"
+      "d18 d20 d23 d15"
+      "d24 d24 d21 d22"
+      "d24 d24 d17 d16";
+  }
+}
+
+.flex-row {
+  display: flex;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.item-baseline {
+  align-items: baseline;
+}
+
+.title {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  grid-area: text;
+}
+
+.merry-christmas {
+  font-size: 60px;
+  line-height: 60px;
+  margin-top: 25px;
+  color: red;
+}
+
+.countdown {
+  height: 150px;
+}
+
+#countdown {
+  font-size: 20px;
+  position: absolute;
+  top: 170px;
+}
+
+.day-15 {
+  grid-area: d15;
+  background: url(image/letter_red.jpg);
+}
+
+.day-15 .back {
+  background-image: url(image/snow_tree.jpeg);
+}
+
+.day-16 {
+  grid-area: d16;
+  background: url(image/letter_red.jpg);
+}
+
+.day-16 .back {
+  background-image: url(image/iceflakes.jpg);
+}
+
+.day-17 {
+  grid-area: d17;
+  background: url(image/letter_red.jpg);
+}
+
+.day-17 .back {
+  background-image: url(image/tree.jpeg);
+}
+
+.day-18 {
+  grid-area: d18;
+  background: url(image/letter_red.jpg);
+}
+
+.day-18 .back {
+  background-image: url(image/wine.JPG);
+}
+
+.day-19 {
+  grid-area: d19;
+  background: url(image/letter_red.jpg);
+}
+
+.day-19 .back {
+  background-image: url(image/frog.JPG);
+}
+
+.day-20 {
+  grid-area: d20;
+  background: url(image/letter_red.jpg);
+}
+
+.day-20 .back {
+  background-image: url(image/snow_church.jpeg);
+}
+
+.day-21 {
+  grid-area: d21;
+  background: url(image/letter_red.jpg);
+}
+
+.day-21 .back {
+  background-image: url(image/polaroid.jpg);
+}
+
+.day-22 {
+  grid-area: d22;
+  background: url(image/letter_red.jpg);
+}
+
+.day-22 .back {
+  background-image: url(image/sake.jpeg);
+}
+
+.day-23 {
+  grid-area: d23;
+  background: url(image/letter_red.jpg);
+}
+
+.day-23 .back {
+  background-image: url(image/santa.jpeg);
+}
+
+.day-24 {
+  grid-area: d24;
+  background: url(image/letter_red.jpg);
+}
+
+.day-24 .back {
+  background-image: url(image/harumichi.jpeg);
+}
+
+.card,
+.card-back {
+  background-position: center;
+  background-size: cover;
+  /* border-radius: 15px; */
+}
+
+.grid-1 input {
+  display: none;
+}
+
+label {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  cursor: pointer;
+
+  display: flex;
+  min-height: 100%;
+  width: 100%;
+  height: 120px;
+}
+
+.door {
+  width: 100%;
+  transform-style: preserve-3d;
+  transition: all 300ms;
+  border-radius: 10px;
+}
+
+.date-num {
+  position: absolute;
+  top: 3px;
+  left: 10px;
+  color: red;
+}
+
+.door div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  font-size: 1.2em;
+  font-weight: bold;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.door .back {
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  transform: rotateY(180deg);
+}
+
+:checked + .door {
+  transform: rotateY(180deg);
+}
+
+/* 확대 및 회전 애니메이션 */
+@keyframes zoomAndRotate {
+  from {
+    transform: scale(0) rotateY(0deg);
+  }
+
+  to {
+    transform: scale(1) rotateY(360deg);
+  }
+}
+
+/* 애니메이션 적용 */
+.zoomIn {
+  animation: zoomAndRotate 0.5s ease forwards;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  flex-direction: column;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+}
+
+.modal-content {
+  width: 380px;
+  height: 380px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 15px;
+  border: 1px solid red;
+  text-align: center;
+  overflow: hidden;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content div {
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.modal-content p {
+  width: 300px;
+  color: black;
+  margin-top: 30px;
+  margin-bottom: 0;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  font-weight: bold;
+  font-size: 17px;
+  word-break: keep-all;
+}
+
+footer {
+  text-align: center;
+  /* padding: 2em 0; */
+  color: white;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.copyright {
+  width: 25rem;
+  font-size: 1rem;
+  margin-top: -20px;
+}
