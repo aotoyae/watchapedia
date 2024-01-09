@@ -23,7 +23,7 @@ header h1 {
 }
 
 main {
-  height: 500px;
+  height: 100%;
   display: grid;
   grid-template-columns: 20% 80%;
   gap: 0 10px;
@@ -31,7 +31,9 @@ main {
 }
 
 #search-container {
-  /* border: 5px solid aquamarine; */
+  align-self: flex-start;
+  position: sticky;
+  top: 0;
   padding: 10px;
 }
 
@@ -48,17 +50,18 @@ main {
   padding-left: 10px;
 }
 
-#search-container button {
+#search-btn {
   width: 100%;
   height: 50px;
   font-size: 20px;
   border: none;
   border-radius: 20px;
   background: #ff0558;
+  color: #fff;
 }
 
 #movie-container {
-  /* border: 5px solid pink; */
+  padding-bottom: 50px;
 }
 
 #movie-list {
@@ -76,14 +79,26 @@ main {
   box-shadow: 3px 3px 8px 3px #eaeaea;
 }
 
+#movie-list li:hover {
+  scale: 1.02;
+  box-shadow: 3px 3px 8px 3px #ff055851;
+  transition-duration: 0.2s;
+}
+
 #movie-list li img {
   width: 100%;
+  border-radius: 3px;
 }
 
 .movie-title {
   padding: 10px 0 10px 0;
   font-size: 15px;
   font-weight: 400;
+}
+
+.movie-average {
+  padding: 0 0 10px 0;
+  color: #ff0558;
 }
 
 .movie-overview {
