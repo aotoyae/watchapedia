@@ -1,6 +1,6 @@
 const movieContainer = document.getElementById("movie-container");
 const movieContainerUl = document.getElementById("movie-list");
-const searchInput = document.getElementById("search-input");
+
 const searchBtn = document.getElementById("search-btn");
 
 const page = 1;
@@ -10,36 +10,51 @@ const FULL_URL = `${BASE_URL}&page=${page}`;
 
 const options = {
   method: "GET",
-  API_KEY
+  API_KEY,
 };
 
-const getMovies = () => {
-  fetch(FULL_URL, options)
+let allMovieList = [];
+
+const fetchMovies = async () => {
+  const { results } = await fetch(FULL_URL, options)
     .then((response) => response.json())
-    .then((movieList) => displayMovies(movieList))
     .catch((err) => {
       console.error(err);
       window.alert(`ERROR!`);
     });
+
+  return results;
 };
 
-getMovies();
+const loadMovies = async () => {
+  allMovieList = await fetchMovies();
+
+  displayMovies(allMovieList);
+};
+
+loadMovies();
 
 const displayMovies = (movieList) => {
-  let movies = movieList.results;
-  movies.forEach((movie) => {
+  // let movies = movieList.results;
+  movieList.forEach((movie) => {
     let overview = movie.overview;
     let imageUrl = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
 
     movieContainerUl.innerHTML += `
-      <li class = "movie-card">
+      <li class = "movie-card" onclick="alert('선택한 영화의 아이디는 ${
+        movie.id
+      }입니다.')">
         <img src ="${imageUrl}">
         <div class= "movie-info">
           <h3 class= "movie-title">
           ${movie.title}
           </h3>
-          <p class= "movie-average">${Math.ceil(movie.vote_average * 10) / 10}</p>
-          <p class= "movie-overview">${overview.length > 100 ? overview.slice(0, 100) + `...` : overview}</p>
+          <p class= "movie-average">${
+            Math.ceil((movie.vote_average / 2) * 10) / 10
+          }</p>
+          <p class= "movie-overview">${
+            overview.length > 100 ? overview.slice(0, 100) + `...` : overview
+          }</p>
           <h5 class= "movie-date"}>${movie.release_date}</h5>
         </div>
       </li>`;
@@ -47,36 +62,17 @@ const displayMovies = (movieList) => {
 };
 
 const searchMovies = () => {
-  fetch(FULL_URL, options)
-    .then((response) => response.json())
-    .then((movieList) => {
-      let movies = movieList.results;
-      const searchTitle = searchInput.value.toLowerCase();
+  movieContainerUl.innerHTML = "";
 
-      movies
-        .filter((movie) => movie.title.toLowerCase() === searchTitle)
-        .forEach((movie) => {
-          let overview = movie.overview;
-          let imageUrl = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+  const searchInput = document.getElementById("search-input");
+  const searchKeyword = searchInput.value.toUpperCase();
+  const searchedMovieList = allMovieList.filter(({ title }) =>
+    title.toUpperCase().includes(searchKeyword)
+  );
 
-          movieContainerUl.innerHTML += `
-            <li class = "movie-card">
-              <img src ="${imageUrl}">
-              <div class= "movie-info">
-                <h3 class= "movie-title">
-                ${movie.title}
-                </h3>
-                <p class= "movie-average">${Math.ceil(movie.vote_average * 10) / 10}</p>
-                <p class= "movie-overview">${overview.length > 100 ? overview.slice(0, 100) + `...` : overview}</p>
-                <h5 class= "movie-date"}>${movie.release_date}</h5>
-              </div>
-            </li>`;
-        });
-    })
-    .catch((err) => {
-      console.error(err);
-      window.alert(`ERROR!`);
-    });
+  searchedMovieList.length > 0
+    ? displayMovies(searchedMovieList)
+    : alert("검색한 영화가 없습니다. 🥲");
 };
 
 searchBtn.addEventListener("click", (event) => {
