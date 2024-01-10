@@ -72,7 +72,12 @@ const searchMovies = () => {
 
   searchedMovieList.length > 0
     ? displayMovies(searchedMovieList)
-    : alert("검색한 영화가 없습니다. 🥲");
+    : noSearchedMovie(searchInput);
+};
+
+const noSearchedMovie = (searchInput) => {
+  alert(`'${searchInput.value}' 영화의 정보가 없습니다. 🥲`);
+  location.reload(true);
 };
 
 searchBtn.addEventListener("click", (event) => {
