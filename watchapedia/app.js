@@ -10,7 +10,7 @@ const FULL_URL = `${BASE_URL}&page=${page}`;
 
 const options = {
   method: "GET",
-  API_KEY,
+  API_KEY
 };
 
 const getMovies = () => {
@@ -38,12 +38,8 @@ const displayMovies = (movieList) => {
           <h3 class= "movie-title">
           ${movie.title}
           </h3>
-          <p class= "movie-average">${
-            Math.ceil(movie.vote_average * 10) / 10
-          }</p>
-          <p class= "movie-overview">${
-            overview.length > 100 ? overview.slice(0, 100) + `...` : overview
-          }</p>
+          <p class= "movie-average">${Math.ceil(movie.vote_average * 10) / 10}</p>
+          <p class= "movie-overview">${overview.length > 100 ? overview.slice(0, 100) + `...` : overview}</p>
           <h5 class= "movie-date"}>${movie.release_date}</h5>
         </div>
       </li>`;
@@ -70,14 +66,8 @@ const searchMovies = () => {
                 <h3 class= "movie-title">
                 ${movie.title}
                 </h3>
-                <p class= "movie-average">${
-                  Math.ceil(movie.vote_average * 10) / 10
-                }</p>
-                <p class= "movie-overview">${
-                  overview.length > 100
-                    ? overview.slice(0, 100) + `...`
-                    : overview
-                }</p>
+                <p class= "movie-average">${Math.ceil(movie.vote_average * 10) / 10}</p>
+                <p class= "movie-overview">${overview.length > 100 ? overview.slice(0, 100) + `...` : overview}</p>
                 <h5 class= "movie-date"}>${movie.release_date}</h5>
               </div>
             </li>`;
