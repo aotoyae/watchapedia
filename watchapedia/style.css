@@ -50,6 +50,12 @@ main {
   padding-left: 10px;
 }
 
+#search-input:hover,
+#search-input:focus {
+  outline: 1px solid #ff0558;
+  border: none;
+}
+
 #search-btn {
   width: 100%;
   height: 50px;
@@ -58,6 +64,14 @@ main {
   border-radius: 20px;
   background: #ff0558;
   color: #fff;
+}
+
+#search-btn:hover {
+  cursor: pointer;
+}
+
+#search-btn:active {
+  box-shadow: 3px 3px 8px 3px #ca0043 inset;
 }
 
 #movie-container {
