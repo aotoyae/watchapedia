@@ -3,10 +3,10 @@ const movieContainerUl = document.getElementById("movie-list");
 
 const searchBtn = document.getElementById("search-btn");
 
-const page = 1;
 const BASE_URL = `https://api.themoviedb.org/3/`;
 const POPULAR_URL = `${BASE_URL}movie/popular?language=en-US`;
-const FULL_URL = `${POPULAR_URL}&page=${page}`;
+let page = 1;
+let calledUrl = `${POPULAR_URL}&page=${page}`;
 
 const options = {
   method: "GET",
@@ -17,7 +17,7 @@ const options = {
   },
 };
 
-async function fetchMovies(url) {
+const fetchMovies = async (url) => {
   try {
     const response = await fetch(url, options);
     const data = await response.json();
@@ -28,9 +28,9 @@ async function fetchMovies(url) {
     console.error(err);
     window.alert(`ERROR!`);
   }
-}
+};
 
-fetchMovies(FULL_URL);
+fetchMovies(calledUrl);
 
 const displayMovies = (MovieList) => {
   MovieList.forEach((movie) => {
@@ -62,12 +62,13 @@ searchBtn.addEventListener("click", (event) => {
   event.preventDefault();
   movieContainerUl.innerHTML = "";
 
-  const SEARCH_URL = `${BASE_URL}search/`;
   const searchInput = document.getElementById("search-input");
   const searchKeyword = searchInput.value;
+  const SEARCH_URL = `${BASE_URL}search/movie?&query=${searchKeyword}`;
+  calledUrl = SEARCH_URL;
 
   if (searchKeyword) {
-    fetchMovies(`${SEARCH_URL}movie?&query=${searchKeyword}`);
+    fetchMovies(SEARCH_URL);
   } else if (searchKeyword.length === 0) {
     emptySearchInput();
   }
@@ -82,3 +83,23 @@ const noSearchedMovie = () => {
   alert(`검색하신 영화의 정보가 없습니다.`);
   location.reload(true);
 };
+
+const test = async () => {
+  if (
+    window.innerHeight + Math.ceil(window.scrollY) >=
+    document.body.offsetHeight
+  ) {
+    console.log("hi");
+    page++;
+    fetchMovies(`${calledUrl}&page=${page}`);
+    console.log(calledUrl);
+  }
+};
+
+let timer = null;
+const last = () => {
+  if (timer) clearTimeout(timer);
+  timer = setTimeout(test, 500);
+};
+
+document.addEventListener("scroll", last);
