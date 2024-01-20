@@ -4,19 +4,14 @@ const movieContainerUl = document.getElementById("movie-list");
 const searchBtn = document.getElementById("search-btn");
 
 const page = 1;
-const API_KEY = apiKey.headers;
-const BASE_URL = "https://api.themoviedb.org/3/movie/top_rated?language=en-US";
-const FULL_URL = `${BASE_URL}&page=${page}`;
-
-const options = {
-  method: "GET",
-  API_KEY,
-};
+const API_KEY = apiKey;
+const BASE_URL = "https://api.themoviedb.org/3/movie/popular?language=en-US";
+const FULL_URL = `${BASE_URL}&page=${page}&${API_KEY}`;
 
 let allMovieList = [];
 
 const fetchMovies = async () => {
-  const { results } = await fetch(FULL_URL, options)
+  const { results } = await fetch(FULL_URL)
     .then((response) => response.json())
     .catch((err) => {
       console.error(err);
