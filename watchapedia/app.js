@@ -4,34 +4,36 @@ const movieContainerUl = document.getElementById("movie-list");
 const searchBtn = document.getElementById("search-btn");
 
 const page = 1;
-const API_KEY = apiKey;
-const BASE_URL = "https://api.themoviedb.org/3/movie/popular?language=en-US";
-const FULL_URL = `${BASE_URL}&page=${page}&${API_KEY}`;
+const BASE_URL = `https://api.themoviedb.org/3/`;
+const POPULAR_URL = `${BASE_URL}movie/popular?language=en-US`;
+const FULL_URL = `${POPULAR_URL}&page=${page}`;
 
-let allMovieList = [];
-
-const fetchMovies = async () => {
-  const { results } = await fetch(FULL_URL)
-    .then((response) => response.json())
-    .catch((err) => {
-      console.error(err);
-      window.alert(`ERROR!`);
-    });
-
-  return results;
+const options = {
+  method: "GET",
+  headers: {
+    accept: "application/json",
+    Authorization:
+      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiOGY4MWFlODY2YjYxNTg0MWM3MGJhNThkN2FmMWZjOSIsInN1YiI6IjY1OTdkZjY2NWNjMTFkNzc2ZTdkY2I4YyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.JYFXxsrYordw_PtizgJbfFiAB1J-fIMcISdFRFLDSnA",
+  },
 };
 
-const loadMovies = async () => {
-  allMovieList = await fetchMovies();
+async function fetchMovies(url) {
+  try {
+    const response = await fetch(url, options);
+    const data = await response.json();
+    const movieList = data.results;
 
-  displayMovies(allMovieList);
-};
+    movieList.length !== 0 ? displayMovies(movieList) : noSearchedMovie();
+  } catch (err) {
+    console.error(err);
+    window.alert(`ERROR!`);
+  }
+}
 
-loadMovies();
+fetchMovies(FULL_URL);
 
-const displayMovies = (movieList) => {
-  // let movies = movieList.results;
-  movieList.forEach((movie) => {
+const displayMovies = (MovieList) => {
+  MovieList.forEach((movie) => {
     let overview = movie.overview;
     let imageUrl = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
 
@@ -40,7 +42,6 @@ const displayMovies = (movieList) => {
         movie.id
       }입니다.')">
         <img src ="${imageUrl}">
-        <div class= "movie-info">
           <h3 class= "movie-title">
           ${movie.title}
           </h3>
@@ -56,26 +57,27 @@ const displayMovies = (movieList) => {
   });
 };
 
-const searchMovies = () => {
+searchBtn.addEventListener("click", (event) => {
+  event.preventDefault();
   movieContainerUl.innerHTML = "";
 
+  const SEARCH_URL = `${BASE_URL}search/`;
   const searchInput = document.getElementById("search-input");
-  const searchKeyword = searchInput.value.toUpperCase();
-  const searchedMovieList = allMovieList.filter(({ title }) =>
-    title.toUpperCase().includes(searchKeyword)
-  );
+  const searchKeyword = searchInput.value;
 
-  searchedMovieList.length > 0
-    ? displayMovies(searchedMovieList)
-    : noSearchedMovie(searchInput);
-};
+  if (searchKeyword) {
+    fetchMovies(`${SEARCH_URL}movie?&query=${searchKeyword}`);
+  } else if (searchKeyword.length === 0) {
+    emptySearchInput();
+  }
+});
 
-const noSearchedMovie = (searchInput) => {
-  alert(`'${searchInput.value}' 영화의 정보가 없습니다. 🥲`);
+const emptySearchInput = () => {
+  alert("검색어를 입력해 주세요.");
   location.reload(true);
 };
 
-searchBtn.addEventListener("click", (event) => {
-  event.preventDefault();
-  searchMovies();
-});
+const noSearchedMovie = () => {
+  alert(`검색하신 영화의 정보가 없습니다.`);
+  location.reload(true);
+};
