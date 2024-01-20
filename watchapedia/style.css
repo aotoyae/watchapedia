@@ -86,20 +86,21 @@ main {
   padding: 0 20px;
 }
 
-#movie-list li {
+.movie-card {
   border: 1px solid #eaeaea;
   border-radius: 20px;
   padding: 20px 20px 30px 20px;
   box-shadow: 3px 3px 8px 3px #eaeaea;
+  cursor: pointer;
 }
 
-#movie-list li:hover {
+.movie-card:hover {
   scale: 1.02;
   box-shadow: 3px 3px 8px 3px #ff055851;
   transition-duration: 0.2s;
 }
 
-#movie-list li img {
+.movie-card img {
   width: 100%;
   border-radius: 3px;
 }
