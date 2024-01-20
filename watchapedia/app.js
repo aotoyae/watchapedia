@@ -41,7 +41,8 @@ const displayMovies = (MovieList) => {
       <li class = "movie-card" onclick="alert('선택한 영화의 아이디는 ${
         movie.id
       }입니다.')">
-        <img src ="${imageUrl}">
+        <img src ="${imageUrl}" onerror="this.src='image/no-poster.png'">
+        <div class= "movie-info">
           <h3 class= "movie-title">
           ${movie.title}
           </h3>
