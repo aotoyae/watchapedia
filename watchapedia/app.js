@@ -32,16 +32,16 @@ const fetchMovies = async (url) => {
 
 fetchMovies(calledUrl);
 
-const displayMovies = (MovieList) => {
-  MovieList.forEach((movie) => {
-    let overview = movie.overview;
-    let imageUrl = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+const displayMovies = (movieList) => {
+  movieList.forEach((movie) => {
+    const overview = movie.overview;
+    const imageUrl = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
 
     movieContainerUl.innerHTML += `
       <li class = "movie-card" onclick="alert('선택한 영화의 아이디는 ${
         movie.id
       }입니다.')">
-        <img src ="${imageUrl}" onerror="this.src='image/no-poster.png'">
+        <img src ="${imageUrl}" onerror="this.src='image/no-poster.png'" alt="영화 포스터">
         <div class= "movie-info">
           <h3 class= "movie-title">
           ${movie.title}
@@ -86,12 +86,11 @@ const noSearchedMovie = () => {
 
 const test = async () => {
   if (
-    window.innerHeight + Math.ceil(window.scrollY) >=
-    document.body.offsetHeight
+    window.innerHeight + Math.ceil(window.scrollY) + 1500 >= document.body.offsetHeight
   ) {
     console.log("hi");
     page++;
-    fetchMovies(`${calledUrl}&page=${page}`);
+    await fetchMovies(`${calledUrl}&page=${page}`);
     console.log(calledUrl);
   }
 };
@@ -99,7 +98,7 @@ const test = async () => {
 let timer = null;
 const last = () => {
   if (timer) clearTimeout(timer);
-  timer = setTimeout(test, 500);
+  timer = setTimeout(test, 0);
 };
 
-document.addEventListener("scroll", last);
+document.addEventListener("scroll", last);  
