@@ -52,7 +52,7 @@ const displayMovies = (movieList) => {
           <p class= "movie-overview">${
             overview.length > 100 ? overview.slice(0, 100) + `...` : overview
           }</p>
-          <h5 class= "movie-date"}>${movie.release_date}</h5>
+          <h5 class= "movie-date">${movie.release_date}</h5>
         </div>
       </li>`;
   });
