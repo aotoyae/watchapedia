@@ -89,7 +89,7 @@ const noSearchedMovie = () => {
   location.reload(true);
 };
 
-const test = async () => {
+const scrollHandler = async () => {
   if (
     window.innerHeight + Math.ceil(window.scrollY) + 1000 >=
     document.body.offsetHeight
@@ -102,9 +102,9 @@ const test = async () => {
 };
 
 let timer = null;
-const last = () => {
+const debouncing = () => {
   if (timer) clearTimeout(timer);
-  timer = setTimeout(test, 0);
+  timer = setTimeout(scrollHandler, 0);
 };
 
-document.addEventListener("scroll", last);
+document.addEventListener("scroll", debouncing);
