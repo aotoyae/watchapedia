@@ -86,7 +86,8 @@ const noSearchedMovie = () => {
 
 const test = async () => {
   if (
-    window.innerHeight + Math.ceil(window.scrollY) + 1500 >= document.body.offsetHeight
+    window.innerHeight + Math.ceil(window.scrollY) + 1000 >=
+    document.body.offsetHeight
   ) {
     console.log("hi");
     page++;
@@ -101,4 +102,4 @@ const last = () => {
   timer = setTimeout(test, 0);
 };
 
-document.addEventListener("scroll", last);  
+document.addEventListener("scroll", last);
