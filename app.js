@@ -23,7 +23,12 @@ const fetchMovies = async (url) => {
     const data = await response.json();
     const movieList = data.results;
 
-    movieList.length !== 0 ? displayMovies(movieList) : noSearchedMovie();
+    if (movieList.length !== 0) {
+      displayMovies(movieList);
+      addHistory();
+    } else {
+      noSearchedMovie();
+    }
   } catch (err) {
     console.error(err);
     window.alert(`ERROR!`);
@@ -63,12 +68,31 @@ const displayMovies = (movieList) => {
   });
 };
 
-searchBtn.addEventListener("click", (event) => {
+const addHistory = () => {
+  const searchInput = document.getElementById("search-input");
+  const searchKeyword = searchInput.value;
+  const searchContainer = document.getElementById("search-container");
+  const historySection = document.createElement("section");
+  const SEARCH_URL = `${BASE_URL}search/movie?&query=${searchKeyword}`;
+
+  const testP = document.createElement("p");
+  testP.append(searchKeyword);
+
+  historySection.appendChild(testP);
+  searchContainer.appendChild(historySection);
+
+  testP.addEventListener("click", () => {
+    console.log("hi");
+  });
+};
+
+const searchMovie = (event) => {
   event.preventDefault();
   movieContainerUl.innerHTML = "";
 
   const searchInput = document.getElementById("search-input");
   const searchKeyword = searchInput.value;
+
   const SEARCH_URL = `${BASE_URL}search/movie?&query=${searchKeyword}`;
   calledUrl = SEARCH_URL;
 
@@ -77,7 +101,9 @@ searchBtn.addEventListener("click", (event) => {
   } else if (searchKeyword.length === 0) {
     emptySearchInput();
   }
-});
+};
+
+searchBtn.addEventListener("click", searchMovie);
 
 const emptySearchInput = () => {
   alert("검색어를 입력해 주세요.");
