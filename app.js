@@ -94,7 +94,6 @@ const scrollHandler = async () => {
     window.innerHeight + Math.ceil(window.scrollY) + 1000 >=
     document.body.offsetHeight
   ) {
-    console.log("hi");
     page++;
     await fetchMovies(`${calledUrl}&page=${page}`);
     console.log(calledUrl);
