@@ -103,7 +103,7 @@ const scrollHandler = async () => {
 let timer = null;
 const debouncing = () => {
   if (timer) clearTimeout(timer);
-  timer = setTimeout(scrollHandler, 0);
+  timer = setTimeout(scrollHandler, 300);
 };
 
 document.addEventListener("scroll", debouncing);
