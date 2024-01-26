@@ -35,12 +35,16 @@ fetchMovies(calledUrl);
 const displayMovies = (movieList) => {
   movieList.forEach((movie) => {
     const overview = movie.overview;
+    const movieLi = document.createElement("li");
+    movieLi.classList.add("movie-card");
     const imageUrl = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
 
-    movieContainerUl.innerHTML += `
-      <li class = "movie-card" onclick="alert('선택한 영화의 아이디는 ${
-        movie.id
-      }입니다.')">
+    movieLi.addEventListener("click", () => {
+      location.href = `detail.html?id=${movie.id}`;
+      console.log(movie.id);
+    });
+
+    movieLi.innerHTML += `
         <img src ="${imageUrl}" onerror="this.src='image/no-poster.png'" alt="영화 포스터">
         <div class= "movie-info">
           <h3 class= "movie-title">
@@ -53,8 +57,9 @@ const displayMovies = (movieList) => {
             overview.length > 100 ? overview.slice(0, 100) + `...` : overview
           }</p>
           <h5 class= "movie-date">${movie.release_date}</h5>
-        </div>
-      </li>`;
+        </div>`;
+
+    movieContainerUl.appendChild(movieLi);
   });
 };
 
