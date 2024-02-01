@@ -1,3 +1,5 @@
+import { AUTHORIZE_KEY } from "./key.js";
+
 const movieContainer = document.getElementById("movie-container");
 const movieContainerUl = document.getElementById("movie-list");
 
@@ -12,8 +14,7 @@ const options = {
   method: "GET",
   headers: {
     accept: "application/json",
-    Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiOGY4MWFlODY2YjYxNTg0MWM3MGJhNThkN2FmMWZjOSIsInN1YiI6IjY1OTdkZjY2NWNjMTFkNzc2ZTdkY2I4YyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.JYFXxsrYordw_PtizgJbfFiAB1J-fIMcISdFRFLDSnA",
+    Authorization: AUTHORIZE_KEY,
   },
 };
 
