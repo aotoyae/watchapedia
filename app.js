@@ -1,11 +1,11 @@
 import { AUTHORIZE_KEY } from "./key.js";
+import { BASE_URL, IMAGE_URL } from "./url.js";
 
 const movieContainer = document.getElementById("movie-container");
 const movieContainerUl = document.getElementById("movie-list");
 
 const searchBtn = document.getElementById("search-btn");
 
-const BASE_URL = `https://api.themoviedb.org/3/`;
 const POPULAR_URL = `${BASE_URL}movie/popular?language=en-US`;
 let page = 1;
 let calledUrl = `${POPULAR_URL}&page=${page}`;
@@ -43,7 +43,7 @@ const displayMovies = (movieList) => {
     const overview = movie.overview;
     const movieLi = document.createElement("li");
     movieLi.classList.add("movie-card");
-    const imageUrl = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+    const posterUrl = `${IMAGE_URL + movie.poster_path}`;
 
     movieLi.addEventListener("click", () => {
       location.href = `detail.html?id=${movie.id}`;
@@ -51,7 +51,7 @@ const displayMovies = (movieList) => {
     });
 
     movieLi.innerHTML += `
-        <img src ="${imageUrl}" onerror="this.src='image/no-poster.png'" alt="영화 포스터">
+        <img src ="${posterUrl}" onerror="this.src='image/no-poster.png'" alt="영화 포스터">
         <div class= "movie-info">
           <h3 class= "movie-title">
           ${movie.title}

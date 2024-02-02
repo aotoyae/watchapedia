@@ -1,10 +1,10 @@
 import { AUTHORIZE_KEY } from "./key.js";
+import { BASE_URL, IMAGE_URL } from "./url.js";
 
 const urlParams = new URLSearchParams(location.search);
 const movieId = urlParams.get("id");
 
-const BASE_URL = `https://api.themoviedb.org/3/movie/`;
-const FULL_URL = `${BASE_URL + movieId}?language=en-US&`;
+const FULL_URL = `${BASE_URL}movie/${movieId}?language=en-US&`;
 
 const options = {
   method: "GET",
@@ -31,7 +31,6 @@ const fetchMovie = async (url) => {
 fetchMovie(FULL_URL);
 
 const displayMovie = (movie) => {
-  const IMG_URL = "https://image.tmdb.org/t/p/w500";
   const POSTER_ARTICLE = document.getElementById("poster-article");
   const INFO_ARTICLE = document.getElementById("info-article");
   const TITLE_BOX = document.createElement("section");
@@ -40,7 +39,7 @@ const displayMovie = (movie) => {
   DETAIL_BOX.classList.add("detail-section");
 
   POSTER_ARTICLE.innerHTML = `
-      <img src=${IMG_URL + movie.poster_path}/>`;
+      <img src=${IMAGE_URL + movie.poster_path}/>`;
 
   TITLE_BOX.innerHTML = `
       <h1>${movie.title}
