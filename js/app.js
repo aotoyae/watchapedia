@@ -56,9 +56,7 @@ const displayMovies = (movieList) => {
           <h3 class= "movie-title">
           ${movie.title}
           </h3>
-          <p class= "movie-average">${
-            Math.ceil((movie.vote_average / 2) * 10) / 10
-          }</p>
+          <p class= "movie-average">${getVoteAverage(movie.vote_average)}</p>
           <p class= "movie-overview">${
             overview.length > 100 ? overview.slice(0, 100) + `...` : overview
           }</p>
@@ -67,6 +65,10 @@ const displayMovies = (movieList) => {
 
     movieContainerUl.appendChild(movieLi);
   });
+};
+
+const getVoteAverage = (vote_average) => {
+  return Math.ceil((vote_average / 2) * 10) / 10;
 };
 
 const addHistory = () => {

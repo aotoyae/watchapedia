@@ -46,7 +46,7 @@ const displayMovie = (movie) => {
       </h1>
       <p class="releas-date">${movie.release_date}</p>
       <p class="vote-star">
-        ${Math.ceil((movie.vote_average / 2) * 10) / 10}
+        ${getVoteAverage(movie.vote_average)}
       </p>`;
 
   DETAIL_BOX.innerHTML = `
@@ -59,4 +59,8 @@ const displayMovie = (movie) => {
 
   INFO_ARTICLE.appendChild(TITLE_BOX);
   INFO_ARTICLE.appendChild(DETAIL_BOX);
+};
+
+const getVoteAverage = (vote_average) => {
+  return Math.ceil((vote_average / 2) * 10) / 10;
 };
