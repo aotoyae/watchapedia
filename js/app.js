@@ -76,13 +76,14 @@ const addHistory = () => {
   const searchContainer = document.getElementById("search-container");
   const historySection = document.createElement("section");
 
-  const testP = document.createElement("a");
-  testP.append(searchKeyword);
+  const historyKeword = document.createElement("p");
+  historyKeword.append(searchKeyword);
+  historyKeword.classList.add("history-keyword");
 
-  historySection.appendChild(testP);
+  historySection.appendChild(historyKeword);
   searchContainer.appendChild(historySection);
 
-  testP.addEventListener("click", (e) => {
+  historyKeword.addEventListener("click", (e) => {
     const SEARCH_HISTORY_URL = `${BASE_URL}search/movie?&query=${e.target.innerHTML}`;
 
     movieContainerUl.innerHTML = "";

@@ -74,6 +74,10 @@ main {
   box-shadow: 3px 3px 8px 3px #ca0043 inset;
 }
 
+.history-keyword {
+  cursor: pointer;
+}
+
 #movie-container {
   padding-bottom: 50px;
 }
