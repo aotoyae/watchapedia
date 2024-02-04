@@ -51,7 +51,7 @@ const displayMovies = (movieList) => {
     });
 
     movieLi.innerHTML += `
-        <img src ="${posterUrl}" onerror="this.src='image/no-poster.png'" alt="영화 포스터">
+        <img src ="${posterUrl}" onerror="this.src='../image/no-poster.png'" alt="영화 포스터">
         <div class= "movie-info">
           <h3 class= "movie-title">
           ${movie.title}
@@ -76,7 +76,7 @@ const addHistory = () => {
   const searchKeyword = searchInput.value;
   const searchContainer = document.getElementById("search-container");
   const historySection = document.createElement("section");
-  const SEARCH_URL = `${BASE_URL}search/movie?&query=${searchKeyword}`;
+  // const SEARCH_URL = `${BASE_URL}search/movie?&query=${searchKeyword}`;
 
   const testP = document.createElement("p");
   testP.append(searchKeyword);
