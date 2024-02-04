@@ -26,7 +26,6 @@ const fetchMovies = async (url) => {
 
     if (movieList.length !== 0) {
       displayMovies(movieList);
-      addHistory();
     } else {
       noSearchedMovie();
     }
@@ -76,16 +75,21 @@ const addHistory = () => {
   const searchKeyword = searchInput.value;
   const searchContainer = document.getElementById("search-container");
   const historySection = document.createElement("section");
-  // const SEARCH_URL = `${BASE_URL}search/movie?&query=${searchKeyword}`;
 
-  const testP = document.createElement("p");
+  const testP = document.createElement("a");
   testP.append(searchKeyword);
 
   historySection.appendChild(testP);
   searchContainer.appendChild(historySection);
 
-  testP.addEventListener("click", () => {
-    console.log("hi");
+  testP.addEventListener("click", (e) => {
+    const SEARCH_HISTORY_URL = `${BASE_URL}search/movie?&query=${e.target.innerHTML}`;
+
+    movieContainerUl.innerHTML = "";
+    calledUrl = SEARCH_HISTORY_URL;
+
+    searchInput.value = e.target.innerHTML;
+    fetchMovies(SEARCH_HISTORY_URL);
   });
 };
 
@@ -101,6 +105,7 @@ const searchMovie = (event) => {
 
   if (searchKeyword) {
     fetchMovies(SEARCH_URL);
+    addHistory();
   } else if (searchKeyword.length === 0) {
     emptySearchInput();
   }
