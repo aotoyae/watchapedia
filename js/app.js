@@ -6,7 +6,7 @@ const searchBtn = document.getElementById('search-btn');
 
 const POPULAR_URL = `${BASE_URL}movie/popular?language=en-US`;
 let page = 1;
-let calledUrl = `${POPULAR_URL}&page=${page}`;
+let calledUrl = `${POPULAR_URL}`;
 
 const options = {
   method: 'GET',
@@ -17,6 +17,7 @@ const options = {
 };
 
 const fetchMovies = async (url) => {
+  console.log(url);
   try {
     const response = await fetch(url, options);
     const data = await response.json();
@@ -130,7 +131,6 @@ const scrollHandler = async () => {
   ) {
     page++;
     await fetchMovies(`${calledUrl}&page=${page}`);
-    console.log(calledUrl);
   }
 };
 
