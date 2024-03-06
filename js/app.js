@@ -1,19 +1,17 @@
-import { AUTHORIZE_KEY } from "./key.js";
-import { BASE_URL, IMAGE_URL } from "./url.js";
+import { AUTHORIZE_KEY } from './key.js';
+import { BASE_URL, IMAGE_URL } from './url.js';
 
-const movieContainer = document.getElementById("movie-container");
-const movieContainerUl = document.getElementById("movie-list");
-
-const searchBtn = document.getElementById("search-btn");
+const movieContainerUl = document.getElementById('movie-list');
+const searchBtn = document.getElementById('search-btn');
 
 const POPULAR_URL = `${BASE_URL}movie/popular?language=en-US`;
 let page = 1;
 let calledUrl = `${POPULAR_URL}&page=${page}`;
 
 const options = {
-  method: "GET",
+  method: 'GET',
   headers: {
-    accept: "application/json",
+    accept: 'application/json',
     Authorization: AUTHORIZE_KEY,
   },
 };
@@ -40,11 +38,11 @@ fetchMovies(calledUrl);
 const displayMovies = (movieList) => {
   movieList.forEach((movie) => {
     const overview = movie.overview;
-    const movieLi = document.createElement("li");
-    movieLi.classList.add("movie-card");
+    const movieLi = document.createElement('li');
+    movieLi.classList.add('movie-card');
     const posterUrl = `${IMAGE_URL + movie.poster_path}`;
 
-    movieLi.addEventListener("click", () => {
+    movieLi.addEventListener('click', () => {
       location.href = `detail.html?id=${movie.id}`;
       console.log(movie.id);
     });
@@ -60,7 +58,8 @@ const displayMovies = (movieList) => {
             overview.length > 100 ? overview.slice(0, 100) + `...` : overview
           }</p>
           <h5 class= "movie-date">${movie.release_date}</h5>
-        </div>`;
+        </div>
+    `;
 
     movieContainerUl.appendChild(movieLi);
   });
@@ -71,22 +70,22 @@ const getVoteAverage = (vote_average) => {
 };
 
 const addHistory = () => {
-  const searchInput = document.getElementById("search-input");
+  const searchInput = document.getElementById('search-input');
   const searchKeyword = searchInput.value;
-  const searchContainer = document.getElementById("search-container");
-  const historySection = document.createElement("section");
+  const searchContainer = document.getElementById('search-container');
+  const historySection = document.createElement('section');
 
-  const historyKeword = document.createElement("p");
+  const historyKeword = document.createElement('p');
   historyKeword.append(searchKeyword);
-  historyKeword.classList.add("history-keyword");
+  historyKeword.classList.add('history-keyword');
 
   historySection.appendChild(historyKeword);
   searchContainer.appendChild(historySection);
 
-  historyKeword.addEventListener("click", (e) => {
+  historyKeword.addEventListener('click', (e) => {
     const SEARCH_HISTORY_URL = `${BASE_URL}search/movie?&query=${e.target.innerHTML}`;
 
-    movieContainerUl.innerHTML = "";
+    movieContainerUl.innerHTML = '';
     calledUrl = SEARCH_HISTORY_URL;
 
     searchInput.value = e.target.innerHTML;
@@ -96,9 +95,9 @@ const addHistory = () => {
 
 const searchMovie = (event) => {
   event.preventDefault();
-  movieContainerUl.innerHTML = "";
+  movieContainerUl.innerHTML = '';
 
-  const searchInput = document.getElementById("search-input");
+  const searchInput = document.getElementById('search-input');
   const searchKeyword = searchInput.value;
 
   const SEARCH_URL = `${BASE_URL}search/movie?&query=${searchKeyword}`;
@@ -112,10 +111,10 @@ const searchMovie = (event) => {
   }
 };
 
-searchBtn.addEventListener("click", searchMovie);
+searchBtn.addEventListener('click', searchMovie);
 
 const emptySearchInput = () => {
-  alert("검색어를 입력해 주세요.");
+  alert('검색어를 입력해 주세요.');
   location.reload(true);
 };
 
@@ -141,4 +140,4 @@ const debouncing = () => {
   timer = setTimeout(scrollHandler, 300);
 };
 
-document.addEventListener("scroll", debouncing);
+document.addEventListener('scroll', debouncing);
