@@ -3,6 +3,7 @@
 ## Watchapedia - TMDB(영화 정보 제공 사이트) API 활용 영화 검색 사이트
 - 프로젝트 기간 : 2024.01.04 ~ 2024.02.04
 - 기술 스택 : HTML, CSS, Vanilla JS, TMDB API
+- 관련 포스팅 : [Link](https://aotoyae.tistory.com/entry/JS-%EB%82%B4%EB%B0%B0%EC%BA%A0-%EC%98%81%ED%99%94-%EA%B2%80%EC%83%89-%EC%82%AC%EC%9D%B4%ED%8A%B8-TMDB-API#google_vignette)
 
 <aside>  
   
