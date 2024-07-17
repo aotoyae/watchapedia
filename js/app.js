@@ -135,9 +135,13 @@ const scrollHandler = async () => {
 };
 
 let timer = null;
-const debouncing = () => {
-  if (timer) clearTimeout(timer);
-  timer = setTimeout(scrollHandler, 300);
+const throttiling = () => {
+  if (timer) return;
+
+  timer = setTimeout(() => {
+    scrollHandler();
+    timer = null;
+  }, 500);
 };
 
-document.addEventListener('scroll', debouncing);
+document.addEventListener('scroll', throttiling);
